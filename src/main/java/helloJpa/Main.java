@@ -27,12 +27,10 @@ public class Main {
             em.flush(); //영속성컨텍스트 날리기
             em.clear(); //영속성컨텍스트 초기화
             Member findMember = em.find(Member.class, member.getId());
-
-            Team findTeam = findMember.getTeam();
-            System.out.println("findTeam.getName() = " + findTeam.getName());
-
-            Team newTeam = em.find(Team.class, 100L);
-            findMember.setTeam(newTeam);
+            List<Member> members = findMember.getTeam().getMembers();
+            for (Member m : members) {
+                System.out.println("m.getUsername() = " + m.getUsername());
+            }
 
             tx.commit();    //커밋
         } catch (Exception e) {
