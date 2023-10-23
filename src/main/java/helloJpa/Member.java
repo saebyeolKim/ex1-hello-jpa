@@ -2,20 +2,22 @@ package helloJpa;
 
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Member {
+public class Member extends BaseEntity{
 
     @Id @GeneratedValue
+    @Column(name = "MEMBER_ID")
     private Long id;
     @Column(name = "USERNAME")
     private String username;
 
-//    @ManyToOne
-//    @JoinColumn(name = "TEAM_ID")
-//    private Team team;
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
+    private Team team;
 
     @OneToOne
     @JoinColumn(name = "LOCKER_ID")
