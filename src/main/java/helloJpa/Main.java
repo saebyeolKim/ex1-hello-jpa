@@ -18,23 +18,16 @@ public class Main {
         tx.begin();     //트랜잭션 시작
         //code
         try {
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
+            Child child1 = new Child();
+            Child child2 = new Child();
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
 
-            Member member1 = new Member();
-            member1.setUsername("user1");
-            member1.setTeam(team);
-            em.persist(member1);
+            em.persist(child1);
+            em.persist(child2);
+            em.persist(parent);
 
-            em.clear(); //영속성 컨텍스트 다 지움
-            em.flush();
-
-            Member m = em.find(Member.class, member1.getId());
-            System.out.println("m = " + m.getTeam().getClass()); //Proxy 로 나옴
-            System.out.println("=====================");
-            m.getTeam().getName(); //실제 team 을 사용하는 시점에 초기화
-            System.out.println("=====================");
             tx.commit();    //커밋
         } catch (Exception e) {
             tx.rollback();
