@@ -19,18 +19,6 @@ public class Member extends BaseEntity{
     @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
     private Team team;
 
-    @OneToOne
-    @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
-
-    @OneToMany(mappedBy = "member")
-    private List<MemberProduct> memberProducts = new ArrayList<>();
-
-//    ManyToMany 는 위의 ONE TO MANY 형식으로 변경해야 한다.
-//    @ManyToMany
-//    @JoinTable(name = "MEMBER_PRODUCT")
-//    private List<Product> products = new ArrayList<>();
-
     public Long getId() {
         return id;
     }
