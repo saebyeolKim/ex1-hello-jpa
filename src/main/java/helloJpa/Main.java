@@ -18,19 +18,14 @@ public class Main {
         tx.begin();     //트랜잭션 시작
         //code
         try {
-            Child child1 = new Child();
-            Child child2 = new Child();
-            Parent parent = new Parent();
-            parent.addChild(child1);
-            parent.addChild(child2);
+            Address address = new Address("city", "street", "1000");
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setHomeAddress(address);
+            em.persist(member);
 
-            em.persist(parent);
-
-            em.flush();
-            em.clear();
-
-            Parent findParent = em.find(Parent.class, parent.getId());
-            findParent.getChildList().remove(0);
+            Address newCity = new Address("NewCity", address.getZipcode(), address.getZipcode());
+            member.setHomeAddress(newCity);
 
             tx.commit();    //커밋
         } catch (Exception e) {
